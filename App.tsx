@@ -1,20 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import {Button, Text, Provider as PaperProvider} from 'react-native-paper';
+import { View } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <PaperProvider>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text variant='titleLarge' style={{ textAlign: 'center', marginBottom: 24 }}>OLA OWO</Text>
+          <Button mode="contained" style={{ marginTop: 20, width: 200, alignSelf: 'center' }}  onPress={()=> console.log("olaa") }>PRESSME</Button>
+        </View>
+      </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
