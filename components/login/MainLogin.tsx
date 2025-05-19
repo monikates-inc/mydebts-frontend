@@ -16,6 +16,10 @@ const LoginScreen: React.FC<Props> = ({toggleTheme, navigation}) => {
         navigation.navigate('Home')
     }
 
+    const handleNavigateRegister= () =>{
+        navigation.navigate('Register')
+    }
+
     return (
         <SafeAreaView style={{flex: 1}}>
             {/* Barra superior con padding pequeño */}
@@ -30,7 +34,7 @@ const LoginScreen: React.FC<Props> = ({toggleTheme, navigation}) => {
                 </Text>
 
                 <TextInput
-                    label="Correo electrónico"
+                    label="Correo electronico"
                     value={email}
                     onChangeText={setEmail}
                     mode="outlined"
@@ -57,6 +61,17 @@ const LoginScreen: React.FC<Props> = ({toggleTheme, navigation}) => {
                     Iniciar Sesion
 
                 </Button>
+                <View
+                style={{width: '50%'}}>
+                    <Button 
+                    mode={'contained'}
+                    style={{marginTop: 20}}
+                    onPress={()=> handleNavigateRegister()}
+                    >
+                    Registrarse
+                    </Button>
+                </View>
+                
             </View>
         </SafeAreaView>
     );
