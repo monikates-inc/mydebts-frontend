@@ -8,6 +8,7 @@ type Props = {
     toggleTheme: () => void;
     navigation: any;
 };
+//aaa
 
 const LoginScreen: React.FC<Props> = ({toggleTheme, navigation}) => {
     const [email, setEmail] = useState('');
