@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, SafeAreaView } from 'react-native';
 import { IconButton, TextInput, Button, Text, HelperText } from 'react-native-paper';
-import { Formik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
+import { handleRegisterApi } from '../../api/register/registerService';
 
 type Props = {
   toggleTheme: () => void;
@@ -10,10 +11,10 @@ type Props = {
 };
 
 const RegisterSchema = Yup.object().shape({
-  names: Yup.string().required('Campo requerido'),
-  lastNames: Yup.string().required('Campo requerido'),
+  name: Yup.string().required('Campo requerido'),
+  lastName: Yup.string().required('Campo requerido'),
   email: Yup.string().email('Correo inválido').required('Campo requerido'),
-  password: Yup.string().min(6, 'Mínimo 6 caracteres').required('Campo requerido'),
+  password: Yup.string().min(8, 'Mínimo 8 caracteres').required('Campo requerido'),
   rpassword: Yup.string()
     .oneOf([Yup.ref('password'), ''], 'Las contraseñas no coinciden')
     .required('Campo requerido'),
@@ -27,6 +28,37 @@ const RegisterScreen: React.FC<Props> = ({ toggleTheme, navigation }) => {
     console.log('Formulario válido:', values);
     navigation.navigate('Login');
   };
+    const handleNavigateLogin = async() =>{
+    const dataForm =  {name:values.name,lastname:values.lastName,email:values.email,password:values.password}
+      try{
+        const result = await handleRegisterApi(dataForm)
+        console.log('respuesta: ', result);
+        navigation.navigate('Login');
+      }catch(error: any){
+        console.log(error)
+      }
+  }
+
+  const {
+  values,
+  errors,
+  touched,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  resetForm,
+  submitForm,
+} = useFormik({
+  initialValues: {
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+    rpassword: '',
+  },
+  validationSchema: RegisterSchema,
+  onSubmit: handleNavigateLogin
+  });
 
   return (
     <SafeAreaView style={{ flex: 1, paddingHorizontal: 20 }}>
@@ -37,43 +69,29 @@ const RegisterScreen: React.FC<Props> = ({ toggleTheme, navigation }) => {
       <Text variant="headlineMedium" style={{ marginBottom: 20 }}>
         Registro
       </Text>
-
-      <Formik
-        initialValues={{
-          names: '',
-          lastNames: '',
-          run: '',
-          email: '',
-          password: '',
-          rpassword: '',
-        }}
-        validationSchema={RegisterSchema}
-        onSubmit={handleRegister}
-      >
-        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
           <>
             <TextInput
-              label="Nombres"
-              value={values.names}
-              onChangeText={handleChange('names')}
-              onBlur={handleBlur('names')}
+              label="Nombre"
+              value={values.name}
+              onChangeText={handleChange('name')}
+              onBlur={handleBlur('name')}
               mode="outlined"
               style={{ marginBottom: 4 }}
             />
-            <HelperText type="error" visible={touched.names && !!errors.names}>
-              {errors.names}
+            <HelperText type="error" visible={touched.name && !!errors.name}>
+              {errors.name}
             </HelperText>
 
             <TextInput
-              label="Apellidos"
-              value={values.lastNames}
-              onChangeText={handleChange('lastNames')}
-              onBlur={handleBlur('lastNames')}
+              label="Apellido"
+              value={values.lastName}
+              onChangeText={handleChange('lastName')}
+              onBlur={handleBlur('lastName')}
               mode="outlined"
               style={{ marginBottom: 4 }}
             />
-            <HelperText type="error" visible={touched.lastNames && !!errors.lastNames}>
-              {errors.lastNames}
+            <HelperText type="error" visible={touched.lastName && !!errors.lastName}>
+              {errors.lastName}
             </HelperText>
             <TextInput
               label="E-mail"
@@ -139,8 +157,7 @@ const RegisterScreen: React.FC<Props> = ({ toggleTheme, navigation }) => {
               </Text>
             </View>
           </>
-        )}
-      </Formik>
+
     </SafeAreaView>
   );
 };
