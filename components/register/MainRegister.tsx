@@ -9,7 +9,7 @@ type Props = {
   toggleTheme: () => void;
   navigation: any;
 };
-
+//asdfasdfasdfas
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required('Campo requerido'),
   lastName: Yup.string().required('Campo requerido'),
@@ -24,10 +24,7 @@ const RegisterScreen: React.FC<Props> = ({ toggleTheme, navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showRpassword, setShowRpassword] = useState(false);
 
-  const handleRegister = (values: any) => {
-    console.log('Formulario válido:', values);
-    navigation.navigate('Login');
-  };
+
     const handleNavigateLogin = async() =>{
     const dataForm =  {name:values.name,lastname:values.lastName,email:values.email,password:values.password}
       try{
@@ -39,16 +36,7 @@ const RegisterScreen: React.FC<Props> = ({ toggleTheme, navigation }) => {
       }
   }
 
-  const {
-  values,
-  errors,
-  touched,
-  handleChange,
-  handleBlur,
-  handleSubmit,
-  resetForm,
-  submitForm,
-} = useFormik({
+  const {values,errors,touched,handleChange,handleBlur,handleSubmit,} = useFormik({
   initialValues: {
     name: '',
     lastName: '',
@@ -57,8 +45,7 @@ const RegisterScreen: React.FC<Props> = ({ toggleTheme, navigation }) => {
     rpassword: '',
   },
   validationSchema: RegisterSchema,
-  onSubmit: handleNavigateLogin
-  });
+  onSubmit: handleNavigateLogin});
 
   return (
     <SafeAreaView style={{ flex: 1, paddingHorizontal: 20 }}>
