@@ -8,7 +8,6 @@ type Props = {
     toggleTheme: () => void;
     navigation: any;
 };
-//aaa
 
 const LoginScreen: React.FC<Props> = ({toggleTheme, navigation}) => {
     const [email, setEmail] = useState('');
@@ -27,8 +26,6 @@ const LoginScreen: React.FC<Props> = ({toggleTheme, navigation}) => {
         } finally {
             setLoading(false);
         }
-
-
     }
 
     const handleNavigateRegister= () =>{

@@ -16,5 +16,4 @@ const RegisterScreen: FC<Props> = ({toggleTheme, navigation}) => {
         </SafeAreaView>
     );
 };
-
 export default RegisterScreen;
