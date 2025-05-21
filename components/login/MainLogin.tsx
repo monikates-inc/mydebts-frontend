@@ -3,24 +3,29 @@ import {View, SafeAreaView} from 'react-native';
 import {Text, IconButton, TextInput, Button} from 'react-native-paper';
 import {handleLogin} from "../../api/login/loginService";
 import Spinner from "react-native-loading-spinner-overlay";
+import {useThemeContext} from "../../context/ThemeContext";
+import { useAuthContext } from '../../context/AuthContext';
 
 type Props = {
-    toggleTheme: () => void;
     navigation: any;
 };
 
-const LoginScreen: React.FC<Props> = ({toggleTheme, navigation}) => {
+const LoginScreen: React.FC<Props> = ({navigation}) => {
+    const { toggleTheme } = useThemeContext();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false);
 
+    const {login} = useAuthContext()
+
     const handleNavigateHome = async () => {
         try {
             setLoading(true);
             const result = await handleLogin({email, password})
+            await login(result.token)
             console.log('usario registrado:', result);
-            navigation.navigate('Home')
+            navigation.replace('Home')
         } catch (error: any) {
             console.log(error);
         } finally {

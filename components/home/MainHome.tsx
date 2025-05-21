@@ -1,14 +1,18 @@
 import React from 'react';
 import {ScrollView, View} from 'react-native';
 import {Text, Card, Button, IconButton} from 'react-native-paper';
+import { useAuthContext} from "../../context/AuthContext"
+import { useThemeContext } from '../../context/ThemeContext';;
 
-type Props = {
-    toggleTheme: () => void;
-};
-const HomeScreen: React.FC<Props> = ({toggleTheme}) => {
+
+const HomeScreen = () => {
+    const { toggleTheme } = useThemeContext();
+    const {token} = useAuthContext()
+    console.log("token: ",token)
     return (
         <>
             {/* Barra superior */}
+
             <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                 <IconButton icon="theme-light-dark" size={30} onPress={toggleTheme}/>
             </View>

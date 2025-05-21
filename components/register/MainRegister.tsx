@@ -4,9 +4,9 @@ import { IconButton, TextInput, Button, Text, HelperText } from 'react-native-pa
 import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { handleRegisterApi } from '../../api/register/registerService';
+import {useThemeContext} from "../../context/ThemeContext";
 
 type Props = {
-  toggleTheme: () => void;
   navigation: any;
 };
 
@@ -20,7 +20,8 @@ const RegisterSchema = Yup.object().shape({
     .required('Campo requerido'),
 });
 
-const RegisterScreen: React.FC<Props> = ({ toggleTheme, navigation }) => {
+const RegisterScreen: React.FC<Props> = ({navigation }) => {
+  const { toggleTheme, isDarkTheme } = useThemeContext();
   const [showPassword, setShowPassword] = useState(false);
   const [showRpassword, setShowRpassword] = useState(false);
 

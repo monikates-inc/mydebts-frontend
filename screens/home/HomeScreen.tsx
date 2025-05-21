@@ -1,16 +1,13 @@
-import React, {FC} from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native';
 import MainHome from "../../components/home/MainHome";
 
-type Props = {
-    toggleTheme: () => void;
-};
 
-const LoginScreen: FC<Props> = ({toggleTheme}) => {
+const LoginScreen= () => {
 
     return (
         <SafeAreaView>
-            <MainHome  toggleTheme={toggleTheme}/>
+            <MainHome />
         </SafeAreaView>
     );
 };
